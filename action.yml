@@ -13,8 +13,10 @@ inputs:
     default: '.'
   phpcs_ref_name:
     description: 'phpcs_ref_name'
+    default: 'abc'
   phpcs_files:
     description: 'phpcs_files'
+    default: ''
   phpcs_head_ref:
     description: 'phpcs_head_ref'
     default: '${{ github.head_ref }}'
@@ -23,7 +25,7 @@ inputs:
     default: '${{ github.base_ref }}'
   phpcs_standard:
     description: 'Coding standard for PHPCS to use when checking files'
-    default: 'WordPress'
+    default: 'PSR12'
   use_default_configuration_file:
     description: 'Whether to use default configuration file or not'
     default: 'true'
