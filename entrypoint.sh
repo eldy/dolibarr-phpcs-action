@@ -5,10 +5,11 @@
 echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
 echo GITHUB_BASE_REF=${GITHUB_BASE_REF}
 echo GITHUB_REF_NAME=${GITHUB_REF_NAME}
+echo GITHUB_EVENT_NAME=${GITHUB_REF_NAME}
 echo INPUT_PHPCS_HEAD_REF=${INPUT_PHPCS_HEAD_REF}
 echo INPUT_PHPCS_BASE_REF=${INPUT_PHPCS_BASE_REF}
 echo INPUT_PHPCS_REF_NAME=${INPUT_PHPCS_REF_NAME}
-
+echo INPUT_PHPCS_GITHUB_EVENT_NAME=${INPUT_PHPCS_GITHUB_EVENT_NAME}
 echo INPUT_PHPCS_FILES=${INPUT_PHPCS_FILES}
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
@@ -47,10 +48,21 @@ run_phpcbf() {
 
 # Get the list of all files modified by the last commit
 echo "Get list of files modified by the last commit..."
-git log -n 5 --decorate
-git diff-tree --no-commit-id --name-only -r HEAD
-export STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
-echo $STAGED_FILES_CMD
+#git log -n 5 --decorate
+#git diff-tree --no-commit-id --name-only -r HEAD
+#export STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
+#echo $STAGED_FILES_CMD
+
+if [ "x$GITHUB_EVENT_NAME" == "xpush" -a  "x$GITHUB_REF_NAME" == "xdevelop" ]
+   export STAGED_FILES_CMD=$(git --no-pager diff --name-only HEAD^ HEAD)
+   echo STAGED_FILES_CMD=$STAGED_FILES_CMD
+fi
+
+if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]
+   git symbolic-ref refs/remotes/origin/HEAD origin/${GITHUB_BASE_REF}
+   export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
+   echo STAGED_FILES_CMD=$STAGED_FILES_CMD
+fi
 
 if [ "$FILES" != "" ]
 then
