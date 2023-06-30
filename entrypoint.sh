@@ -11,23 +11,23 @@ run_phpcs() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
-      "${INPUT_PHPCS_ARGS:-\.}"
+      "${INPUT_PHPCS_ARGS}"
   else
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      "${INPUT_PHPCS_ARGS:-\.}"
+      "${INPUT_PHPCS_ARGS}"
   fi
 }
 
 run_phpcbf() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcbf.phar \
-      "${INPUT_PHPCBF_ARGS:-\.}"
+      "${INPUT_PHPCBF_ARGS}"
   else
     /usr/local/bin/phpcbf.phar \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      "${INPUT_PHPCBF_ARGS:-\.}"
+      "${INPUT_PHPCBF_ARGS}"
   fi
 }
 
