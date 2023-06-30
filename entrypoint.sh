@@ -64,7 +64,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
 
-if [ "$FILES" != "" ]; then
+if [ "$STAGED_FILES_CMD" != "" ]; then
     echo "Running PHPCS Code Sniffer..."
 
     run_phpcs
