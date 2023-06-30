@@ -53,19 +53,18 @@ echo "Get list of files modified by the last commit..."
 #export STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
 #echo $STAGED_FILES_CMD
 
-if [ "x$GITHUB_EVENT_NAME" == "xpush" -a  "x$GITHUB_REF_NAME" == "xdevelop" ]
+if [ "x$GITHUB_EVENT_NAME" == "xpush" -a  "x$GITHUB_REF_NAME" == "xdevelop" ]; then
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only HEAD^ HEAD)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
 
-if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]
+if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git symbolic-ref refs/remotes/origin/HEAD origin/${GITHUB_BASE_REF}
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
 
-if [ "$FILES" != "" ]
-then
+if [ "$FILES" != "" ]; then
     echo "Running PHPCS Code Sniffer..."
 
     run_phpcs
