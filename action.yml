@@ -11,6 +11,10 @@ inputs:
   phpcs_args:
     description: 'Additional PHPCS flags'
     default: '.'
+  phpcs_ref_name:
+    description: 'phpcs_ref_name'
+  phpcs_files:
+    description: 'phpcs_files'
   phpcs_head_ref:
     description: 'phpcs_head_ref'
     default: '${{ github.head_ref }}'
