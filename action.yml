@@ -1,6 +1,6 @@
 name: 'Run & fix PHP Code Sniffer'
 description: '🤝 Run PHPCS and fix errors using PHPCBF on wordpress and other php code bases'
-author: 'shalior'
+author: 'eldy'
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
