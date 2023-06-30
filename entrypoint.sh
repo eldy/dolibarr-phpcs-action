@@ -11,23 +11,23 @@ run_phpcs() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
-      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
+      -n -s -p -d memory_limit=-1 --parallel=2 --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true ${STAGED_FILES_CMD}
   else
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
+      -n -s -p -d memory_limit=-1 --parallel=2 --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true ${STAGED_FILES_CMD}
   fi
 }
 
 run_phpcbf() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcbf.phar \
-      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
+      -n -s -p -d memory_limit=-1 --parallel=2 --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true ${STAGED_FILES_CMD}
   else
     /usr/local/bin/phpcbf.phar \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
+      -n -s -p -d memory_limit=-1 --parallel=2 --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true ${STAGED_FILES_CMD}
   fi
 }
 
@@ -35,7 +35,7 @@ run_phpcbf() {
 # Main
 
 # Get the list of all files modified by the last commit
-STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
+export STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
 
 if [ "$FILES" != "" ]
 then
