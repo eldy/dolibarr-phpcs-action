@@ -11,23 +11,23 @@ run_phpcs() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
-      "${INPUT_PHPCS_ARGS}"
+      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
   else
     /usr/local/bin/phpcs.phar \
       --report-checkstyle \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      "${INPUT_PHPCS_ARGS}"
+      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
   fi
 }
 
 run_phpcbf() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcbf.phar \
-      "${INPUT_PHPCBF_ARGS}"
+      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
   else
     /usr/local/bin/phpcbf.phar \
       --standard="${INPUT_PHPCS_STANDARD}" \
-      "${INPUT_PHPCBF_ARGS}"
+      -n -s --extensions=php --colors --tab-width=4 --encoding=utf-8 --runtime-set ignore_warnings_on_exit true .
   fi
 }
 
