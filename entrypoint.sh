@@ -31,50 +31,60 @@ run_phpcbf() {
   fi
 }
 
-run_phpcs
 
-# get status code of command
-# 0 = success
-# phpcs 2 = fixable errors found
-# phpcs 1 = only not fixable errors found
+# Main
 
-RESULT=$?
-echo "exit code = ${RESULT}"
-if [ "${RESULT}" -ne 0 ]; then
-  echo "phpcs failed with status code: ${RESULT}"
+# Get the list of all files modified by the last commit
+STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
 
-  #if result is 1, then only not fixable errors found
-  if [ "${RESULT}" -eq 1 ]; then
-    echo "only not fixable errors found"
-    exit 1
-  fi
+if [ "$FILES" != "" ]
+then
+    echo "Running PHPCS Code Sniffer..."
 
-  #if result is 2, then fixable errors found
-  if [ "${RESULT}" -eq 2 ]; then
-    echo "fixable errors found (2)"
-    echo "Running phpcbf"
-    run_phpcbf
-
-    # rerun phpcs
     run_phpcs
 
-    SECOND_PHPCS_RESULT=$?
+    # get status code of command
+    # 0 = success
+    # phpcs 2 = fixable errors found
+    # phpcs 1 = only not fixable errors found
 
-    echo "Second phpcs result = ${SECOND_PHPCS_RESULT}"
+    RESULT=$?
+    echo "exit code = ${RESULT}"
+    if [ "${RESULT}" -ne 0 ]; then
+      echo "phpcs failed with status code: ${RESULT}"
 
-    if [ "${SECOND_PHPCS_RESULT}" -eq 1 ]; then
-      echo "phpcbf failed to fix all errors"
-      exit 1
+      #if result is 1, then only not fixable errors found
+      if [ "${RESULT}" -eq 1 ]; then
+        echo "only not fixable errors found"
+        exit 1
+      fi
+
+      #if result is 2, then fixable errors found
+      if [ "${RESULT}" -eq 2 ]; then
+        echo "fixable errors found (2)"
+        echo "Running phpcbf"
+        run_phpcbf
+
+        # rerun phpcs
+        run_phpcs
+
+        SECOND_PHPCS_RESULT=$?
+
+        echo "Second phpcs result = ${SECOND_PHPCS_RESULT}"
+
+        if [ "${SECOND_PHPCS_RESULT}" -eq 1 ]; then
+          echo "phpcbf failed to fix all errors"
+          exit 1
+        fi
+
+        # if second phpcs result is 0, then no errors found
+        if [ "${SECOND_PHPCS_RESULT}" -eq 0 ]; then
+          echo "Success, no errors found"
+          exit 0
+        fi
+
+        exit "${SECOND_PHPCS_RESULT}"
+       fi
+
     fi
-
-    # if second phpcs result is 0, then no errors found
-    if [ "${SECOND_PHPCS_RESULT}" -eq 0 ]; then
-      echo "Success, no errors found"
-      exit 0
-    fi
-
-    exit "${SECOND_PHPCS_RESULT}"
-
-  fi
-
 fi
