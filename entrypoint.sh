@@ -38,7 +38,9 @@ run_phpcbf() {
 # Main
 
 # Get the list of all files modified by the last commit
+echo "Get list of files modified by the last commit..."
 export STAGED_FILES_CMD=`git diff-tree --no-commit-id --name-only -r HEAD`
+echo $STAGED_FILES_CMD
 
 if [ "$FILES" != "" ]
 then
@@ -90,4 +92,6 @@ then
        fi
 
     fi
+else
+    echo No modified file found
 fi
