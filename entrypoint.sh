@@ -1,4 +1,7 @@
 #!/bin/sh
+# This script analyse the git project in the current workspace ${GITHUB_WORKSPACE}
+# It executes phpcs and phpcbf if error were found on the modified files of the last commit.
+
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit
