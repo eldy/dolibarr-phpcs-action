@@ -13,10 +13,12 @@ inputs:
     default: '.'
   phpcs_ref_name:
     description: 'phpcs_ref_name'
-    default: 'abc'
+    default: '${{ github.ref_name }}'
   phpcs_files:
     description: 'phpcs_files'
     default: ''
+  phpcs_github_event_name:
+    description: 'phpcs_github_event_name'
   phpcs_head_ref:
     description: 'phpcs_head_ref'
     default: '${{ github.head_ref }}'
@@ -30,8 +32,8 @@ inputs:
     description: 'Whether to use default configuration file or not'
     default: 'true'
   phpcbf_args:
-      description: 'Additional PHPCBF flags'
-      default: '.'
+    description: 'Additional PHPCBF flags'
+    default: '.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
