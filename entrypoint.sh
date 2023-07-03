@@ -19,6 +19,7 @@ fi
 
 /usr/local/bin/phpcs.phar --config-set installed_paths /tmp/rulesets
 
+
 run_phpcs() {
   if [ "${INPUT_USE_DEFAULT_CONFIGURATION_FILE}" = true ]; then
     /usr/local/bin/phpcs.phar \
