@@ -67,7 +67,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git remote
    git show-ref
 
-   chmod -R a+rwx ${GITHUB_WORKSPACE}
+   chmod -R a+rwx ${GITHUB_WORKSPACE}/.git
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only tempbranch)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
