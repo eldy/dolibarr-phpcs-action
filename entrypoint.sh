@@ -51,7 +51,6 @@ if [ "x$GITHUB_EVENT_NAME" == "xpush" -a  "x$GITHUB_REF_NAME" == "xdevelop" ]; t
 fi
 
 if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
-   #git ls-remote
    git branch
    git remote
    git show-ref
@@ -73,6 +72,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 
    git checkout tempbranch
+   git branch
    cd ${GITHUB_WORKSPACE}
 fi
 
