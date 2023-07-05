@@ -57,9 +57,10 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git show-ref
    git checkout -b tempbranch
 
+   #mkdir /tmp/aaa
+   #cd /tmp/aaa
    ORIGIN=https://${GITHUB_ACTION}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
    echo ORIGIN=$ORIGIN
-   git fetch $ORIGIN ${GITHUB_BASE_REF}
    git pull origin ${GITHUB_BASE_REF}
    git checkout origin/${GITHUB_BASE_REF}
    git checkout ${GITHUB_BASE_REF}
@@ -70,6 +71,8 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    chmod -R a+rwx ${GITHUB_WORKSPACE}/.git
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only tempbranch)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
+
+   cd ${GITHUB_WORKSPACE}
 fi
 
 if [ "$STAGED_FILES_CMD" != "" ]; then
