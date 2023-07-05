@@ -107,6 +107,14 @@ if [ "$STAGED_FILES_CMD" != "" ]; then
         # if second phpcs result is 0, then no errors found
         if [ "${SECOND_PHPCS_RESULT}" -eq 0 ]; then
           echo "Success, no errors found"
+          
+          git checkout tempbranch
+          git branch
+          git diff
+          #git fetch $ORIGIN ${GITHUB_HEAD_REF}
+          #git merge FETCH_HEAD -m "Merging in remote"
+          #git push $ORIGIN HEAD:${GITHUB_HEAD_REF}
+
           exit 0
         fi
         exit "${SECOND_PHPCS_RESULT}"
