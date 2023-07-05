@@ -50,11 +50,11 @@ if [ "x$GITHUB_EVENT_NAME" == "xpush" -a  "x$GITHUB_REF_NAME" == "xdevelop" ]; t
 fi
 
 if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
+   git ls-remote
    git branch
    git remote
    git show-ref
    git checkout -b tempbranch
-   #git ls-remote
    git checkout refs/remotes/origin/develop
    git branch
    git remote
