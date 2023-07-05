@@ -72,6 +72,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only tempbranch)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 
+   git checkout tempbranch
    cd ${GITHUB_WORKSPACE}
 fi
 
@@ -108,7 +109,6 @@ if [ "$STAGED_FILES_CMD" != "" ]; then
         if [ "${SECOND_PHPCS_RESULT}" -eq 0 ]; then
           echo "Success, no errors found"
           
-          git checkout tempbranch
           git branch
           git diff
           #git fetch $ORIGIN ${GITHUB_HEAD_REF}
