@@ -1,4 +1,4 @@
-#!/bin/sh
+h#!/bin/sh
 # This script analyse the git project in the current workspace ${GITHUB_WORKSPACE}
 # It executes phpcs and phpcbf if error were found on the modified files of the last commit.
 
@@ -61,7 +61,8 @@ fi
 
 if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git branch
-   git checkout -b temp-branch
+   git fetch origin develop
+   #git checkout -b temp-branch
    git ls-remote
    #export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
    #export STAGED_FILES_CMD=$(git --no-pager diff --name-only refs/pull/${GITHUB_REF_NAME} origin/${GITHUB_BASE_REF})
