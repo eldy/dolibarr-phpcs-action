@@ -55,7 +55,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git remote
    git show-ref
    git checkout -b tempbranch
-   git checkout refs/remotes/origin/develop
+   git checkout refs/heads/develop
    git branch
    git remote
    git show-ref
