@@ -5,6 +5,7 @@ echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
 echo GITHUB_BASE_REF=${GITHUB_BASE_REF}
 echo GITHUB_REF_NAME=${GITHUB_REF_NAME}
 echo GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}
+echo GITHUB_WORKSPACE=${GITHUB_WORKSPACE}
 echo INPUT_PHPCS_HEAD_REF=${INPUT_PHPCS_HEAD_REF}
 echo INPUT_PHPCS_BASE_REF=${INPUT_PHPCS_BASE_REF}
 echo INPUT_PHPCS_REF_NAME=${INPUT_PHPCS_REF_NAME}
@@ -65,7 +66,8 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git branch
    git remote
    git show-ref
-   
+
+   chmod -R a+rwx ${GITHUB_WORKSPACE}
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only tempbranch)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
