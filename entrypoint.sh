@@ -54,7 +54,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git remote
    #git ls-remote
    git checkout -b tempbranch
-   #git checkout origin/develop
+   git checkout origin/develop
    #export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only pull/${GITHUB_REF_NAME} origin/${GITHUB_BASE_REF})
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
