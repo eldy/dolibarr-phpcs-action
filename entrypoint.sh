@@ -55,10 +55,6 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git remote
    git show-ref
    git checkout -b tempbranch
-   git checkout refs/heads/develop
-   git branch
-   git remote
-   git show-ref
 
    ORIGIN=https://${GITHUB_ACTION}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
    echo ORIGIN=$ORIGIN
@@ -70,7 +66,6 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git remote
    git show-ref
    
-   #export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
    export STAGED_FILES_CMD=$(git --no-pager diff --name-only tempbranch)
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
