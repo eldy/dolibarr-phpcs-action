@@ -61,8 +61,12 @@ fi
 
 if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    git branch
+   git symbolic-ref pull/${GITHUB_REF_NAME} origin/${GITHUB_HEAD_REF}
+   git branch
    git symbolic-ref refs/remotes/origin/HEAD origin/${GITHUB_BASE_REF}
-   export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
+   git branch
+   #export STAGED_FILES_CMD=$(git --no-pager diff --name-only origin/${GITHUB_HEAD_REF} origin/${GITHUB_BASE_REF})
+   export STAGED_FILES_CMD=$(git --no-pager diff --name-only pull/${GITHUB_REF_NAME} origin/${GITHUB_BASE_REF})
    echo STAGED_FILES_CMD=$STAGED_FILES_CMD
 fi
 
