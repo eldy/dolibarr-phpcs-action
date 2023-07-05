@@ -63,6 +63,7 @@ if [ "x$GITHUB_EVENT_NAME" == "xpull_request" ]; then
    ORIGIN=https://${GITHUB_ACTION}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
    echo ORIGIN=$ORIGIN
    git fetch $ORIGIN ${GITHUB_BASE_REF}
+   git pull origin ${GITHUB_BASE_REF}
    git checkout origin/${GITHUB_BASE_REF}
    git checkout ${GITHUB_BASE_REF}
    git branch
