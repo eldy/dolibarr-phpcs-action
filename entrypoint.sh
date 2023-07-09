@@ -111,9 +111,10 @@ if [ "$STAGED_FILES_CMD" != "" ]; then
           
           git branch
           git diff
-          #git fetch $ORIGIN ${GITHUB_HEAD_REF}
-          #git merge FETCH_HEAD -m "Merging in remote"
-          #git push $ORIGIN HEAD:${GITHUB_HEAD_REF}
+          
+          git fetch $ORIGIN ${GITHUB_HEAD_REF}
+          git merge FETCH_HEAD -m "Merging in remote"
+          git push $ORIGIN HEAD:${GITHUB_HEAD_REF}
 
           exit 0
         fi
